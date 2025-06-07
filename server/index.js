@@ -33,7 +33,19 @@ async function parseMarkdown(content) {
   frontmatterStr.split('\n').forEach(line => {
     const [key, ...valueParts] = line.split(':');
     if (key && valueParts.length) {
-      const value = valueParts.join(':').trim();
+      let value = valueParts.join(':').trim();
+      // Remove wrapping quotes if present
+      if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+        value = value.slice(1, -1);
+      }
+      // Parse arrays (e.g. tags: ["code", "equity"])
+      if (value.startsWith('[') && value.endsWith(']')) {
+        try {
+          value = JSON.parse(value.replace(/'/g, '"'));
+        } catch (e) {
+          // fallback: leave as string
+        }
+      }
       frontmatter[key.trim()] = value;
     }
   });
@@ -87,21 +99,8 @@ app.get('/', (req, res) => {
 });
 
 // Individual post route
-app.get('/post/:slug', async (req, res) => {
-  try {
-    const posts = await loadPosts();
-    const post = posts.find(p => p.slug === req.params.slug);
-    
-    if (!post) {
-      return res.status(404).send('Post not found');
-    }
-
-    const html = await renderer.getCached(`post-${post.slug}`, () => renderer.renderPost(post));
-    res.send(html);
-  } catch (error) {
-    console.error('Error rendering post:', error);
-    res.status(500).send('Internal Server Error');
-  }
+app.get('/post/:slug', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/post.html'));
 });
 
 // API endpoint to get all posts
@@ -112,6 +111,23 @@ app.get('/api/posts', async (req, res) => {
   } catch (error) {
     console.error('Error loading posts:', error);
     res.status(500).json({ error: 'Failed to load posts' });
+  }
+});
+
+// API endpoint to get a single post
+app.get('/api/posts/:slug', async (req, res) => {
+  try {
+    const posts = await loadPosts();
+    const post = posts.find(p => p.slug === req.params.slug);
+    
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    res.json(post);
+  } catch (error) {
+    console.error('Error loading post:', error);
+    res.status(500).json({ error: 'Failed to load post' });
   }
 });
 

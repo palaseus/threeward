@@ -64,6 +64,4 @@ const theme = {
 };
 
 // Initialize theme when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => theme.init());
-
-module.exports = theme; 
+document.addEventListener('DOMContentLoaded', () => theme.init()); 
