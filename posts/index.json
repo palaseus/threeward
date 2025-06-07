@@ -1,0 +1,17 @@
+[
+  {
+    "id": "post1",
+    "title": "Example Post 1",
+    "excerpt": "An overview of outlaw logic in dev culture."
+  },
+  {
+    "id": "post2",
+    "title": "Example Post 2",
+    "excerpt": "A deep dive into the intersection of law and code."
+  },
+  {
+    "id": "post3",
+    "title": "Example Post 3",
+    "excerpt": "Exploring the rebellious side of programming."
+  }
+] 

@@ -1,0 +1,28 @@
+{
+  "name": "threeward-blog",
+  "version": "1.0.0",
+  "description": "A modern blog built with Node.js and TailwindCSS",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "concurrently \"npm run watch:css\" \"nodemon server/index.js\"",
+    "build:css": "tailwindcss -i ./css/input.css -o ./public/css/style.css",
+    "watch:css": "tailwindcss -i ./css/input.css -o ./public/css/style.css --watch",
+    "test": "jest"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "marked": "^4.0.0"
+  },
+  "devDependencies": {
+    "@headlessui/react": "^1.7.0",
+    "@heroicons/react": "^2.0.0",
+    "@tailwindcss/typography": "^0.5.0",
+    "autoprefixer": "^10.4.0",
+    "concurrently": "^8.0.0",
+    "jest": "^29.0.0",
+    "nodemon": "^3.0.0",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^3.3.0"
+  }
+}
