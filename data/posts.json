@@ -1,0 +1,32 @@
+[
+  {
+    "slug": "getting-started-with-tailwindcss",
+    "frontmatter": {
+      "title": "Getting Started with TailwindCSS",
+      "date": "2024-03-15",
+      "author": "John Doe",
+      "tags": ["CSS", "TailwindCSS", "Web Development"]
+    },
+    "excerpt": "Learn how to set up and use TailwindCSS in your next project. This comprehensive guide covers installation, configuration, and best practices for using this utility-first CSS framework."
+  },
+  {
+    "slug": "building-modern-blogs",
+    "frontmatter": {
+      "title": "Building Modern Blogs with Node.js",
+      "date": "2024-03-10",
+      "author": "Jane Smith",
+      "tags": ["Node.js", "JavaScript", "Blogging"]
+    },
+    "excerpt": "Discover how to build a modern blog using Node.js and Express. We'll cover everything from setting up the server to implementing dynamic content loading and SEO optimization."
+  },
+  {
+    "slug": "dark-mode-implementation",
+    "frontmatter": {
+      "title": "Implementing Dark Mode in Your Web App",
+      "date": "2024-03-05",
+      "author": "Alex Johnson",
+      "tags": ["CSS", "JavaScript", "UX Design"]
+    },
+    "excerpt": "A step-by-step guide to implementing dark mode in your web application. Learn about color schemes, user preferences, and how to make your app accessible in both light and dark modes."
+  }
+] 

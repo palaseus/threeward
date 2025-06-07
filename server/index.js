@@ -13,10 +13,7 @@ const renderer = new Renderer({
 });
 
 // Serve static files from public directory
-app.use(express.static(path.join(__dirname, '../public'), {
-  // Don't serve index.html from public directory
-  index: false
-}));
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Add body parser for JSON
 app.use(express.json());
@@ -49,46 +46,44 @@ async function parseMarkdown(content) {
 
 // Load all posts
 async function loadPosts() {
-  const postsDir = path.join(__dirname, '../posts');
-  const files = await fs.readdir(postsDir);
-  const posts = [];
+  try {
+    const postsDir = path.join(__dirname, '../posts');
+    const files = await fs.readdir(postsDir);
+    const posts = [];
 
-  for (const file of files) {
-    if (file.endsWith('.md')) {
-      const content = await fs.readFile(path.join(postsDir, file), 'utf-8');
-      const { frontmatter, content: parsedContent } = await parseMarkdown(content);
-      const slug = file.replace('.md', '');
-      
-      // Generate excerpt from content
-      const excerpt = parsedContent
-        .replace(/<[^>]*>/g, '') // Remove HTML tags
-        .slice(0, 200) // Get first 200 characters
-        .trim() + '...'; // Add ellipsis
-      
-      posts.push({
-        slug,
-        frontmatter,
-        content: parsedContent,
-        excerpt
-      });
+    for (const file of files) {
+      if (file.endsWith('.md')) {
+        const content = await fs.readFile(path.join(postsDir, file), 'utf-8');
+        const { frontmatter, content: parsedContent } = await parseMarkdown(content);
+        const slug = file.replace('.md', '');
+        
+        // Generate excerpt from content
+        const excerpt = parsedContent
+          .replace(/<[^>]*>/g, '') // Remove HTML tags
+          .slice(0, 200) // Get first 200 characters
+          .trim() + '...'; // Add ellipsis
+        
+        posts.push({
+          slug,
+          frontmatter,
+          content: parsedContent,
+          excerpt
+        });
+      }
     }
-  }
 
-  return posts.sort((a, b) => 
-    new Date(b.frontmatter.date) - new Date(a.frontmatter.date)
-  );
+    return posts.sort((a, b) => 
+      new Date(b.frontmatter.date) - new Date(a.frontmatter.date)
+    );
+  } catch (error) {
+    console.error('Error loading posts:', error);
+    return [];
+  }
 }
 
-// Blog index route - must be before static file serving
-app.get('/', async (req, res) => {
-  try {
-    const posts = await loadPosts();
-    const html = await renderer.getCached('index', () => renderer.renderIndex(posts));
-    res.send(html);
-  } catch (error) {
-    console.error('Error rendering index:', error);
-    res.status(500).send('Internal Server Error');
-  }
+// Blog index route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 // Individual post route
@@ -136,6 +131,12 @@ app.post('/api/invalidate', async (req, res) => {
     console.error('Error invalidating cache:', error);
     res.status(500).json({ error: 'Failed to invalidate cache' });
   }
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
 });
 
 // Start server
