@@ -17,23 +17,27 @@
         }
     </script>
 </head>
-<body class="h-full bg-gray-50 dark:bg-gray-900">
-    <div class="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
-                Admin Login
-            </h2>
-        </div>
+<body class="h-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+            <!-- Logo and Title -->
+            <div class="text-center">
+                <a href="/" class="inline-block">
+                    <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">Threeward</h1>
+                </a>
+                <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-300">Admin Portal</h2>
+                <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Sign in to manage your blog</p>
+            </div>
 
-        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <div class="bg-white dark:bg-gray-800 py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            <!-- Login Form -->
+            <div class="mt-8 bg-white dark:bg-gray-800 py-8 px-4 shadow-xl rounded-lg sm:px-10">
                 <form id="login-form" class="space-y-6">
                     <div>
                         <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Username
                         </label>
                         <div class="mt-1">
-                            <input id="username" name="username" type="text" required 
+                            <input id="username" name="username" type="text" required
                                 class="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm">
                         </div>
                     </div>
@@ -43,27 +47,39 @@
                             Password
                         </label>
                         <div class="mt-1">
-                            <input id="password" name="password" type="password" required 
+                            <input id="password" name="password" type="password" required
                                 class="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm">
                         </div>
                     </div>
 
                     <div>
-                        <button type="submit" 
-                            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <button type="submit"
+                            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
                             Sign in
                         </button>
                     </div>
                 </form>
 
-                <div id="error-message" class="mt-4 text-center text-sm text-red-600 dark:text-red-400 hidden">
-                    Invalid username or password
+                <!-- Theme Toggle -->
+                <div class="mt-6">
+                    <button id="theme-toggle" class="w-full flex items-center justify-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                        <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                        Toggle Theme
+                    </button>
                 </div>
+            </div>
+
+            <!-- Back to Blog Link -->
+            <div class="text-center">
+                <a href="/" class="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 transition-colors duration-200">
+                    ← Back to Blog
+                </a>
             </div>
         </div>
     </div>
 
-    <script src="/js/theme.js"></script>
     <script src="/js/admin/login.js"></script>
 </body>
 </html> 

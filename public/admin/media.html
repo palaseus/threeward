@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Library - Your Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="/" class="text-xl font-bold text-gray-900 dark:text-white">Your Blog</a>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="/admin/dashboard" data-nav-link="dashboard" class="border-transparent text-gray-500 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 hover:text-gray-700 dark:hover:text-gray-200 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Dashboard
+                        </a>
+                        <a href="/admin/posts" data-nav-link="posts" class="border-transparent text-gray-500 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 hover:text-gray-700 dark:hover:text-gray-200 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Posts
+                        </a>
+                        <a href="/admin/media" data-nav-link="media" class="border-transparent text-gray-500 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 hover:text-gray-700 dark:hover:text-gray-200 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Media
+                        </a>
+                        <a href="/admin/settings" data-nav-link="settings" class="border-transparent text-gray-500 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 hover:text-gray-700 dark:hover:text-gray-200 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Settings
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <button id="theme-toggle" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                        </svg>
+                    </button>
+                    <button id="logout-button" class="ml-4 px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 py-6 sm:px-0">
+            <div class="sm:flex sm:items-center">
+                <div class="sm:flex-auto">
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Media Library</h2>
+                    <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">
+                        Upload and manage your media files.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Upload Area -->
+            <div class="mt-4">
+                <div class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-lg">
+                    <div class="space-y-1 text-center">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <div class="flex text-sm text-gray-600 dark:text-gray-400">
+                            <label for="media-upload" class="relative cursor-pointer bg-white dark:bg-gray-700 rounded-md font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                                <span>Upload a file</span>
+                                <input id="media-upload" name="file" type="file" class="sr-only" accept="image/*,video/*">
+                            </label>
+                            <p class="pl-1">or drag and drop</p>
+                        </div>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                            PNG, JPG, GIF up to 10MB
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Media Grid -->
+            <div class="mt-8">
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4" id="media-grid">
+                    <!-- Media items will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const admin = {
+            init() {
+                this.checkAuth();
+                this.setupLogout();
+                this.setupThemeToggle();
+                this.setupNavigation();
+                this.setupMediaUpload();
+                this.loadMedia();
+            },
+
+            setupNavigation() {
+                const navLinks = document.querySelectorAll('[data-nav-link]');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const target = link.getAttribute('data-nav-link');
+                        this.navigateTo(target);
+                    });
+                });
+
+                const currentPath = window.location.pathname;
+                navLinks.forEach(link => {
+                    const target = link.getAttribute('data-nav-link');
+                    if (currentPath.includes(target)) {
+                        link.classList.add('bg-gray-100', 'dark:bg-gray-800');
+                    }
+                });
+            },
+
+            navigateTo(target) {
+                switch (target) {
+                    case 'dashboard':
+                        window.location.href = '/admin/dashboard';
+                        break;
+                    case 'posts':
+                        window.location.href = '/admin/posts';
+                        break;
+                    case 'media':
+                        window.location.href = '/admin/media';
+                        break;
+                    case 'settings':
+                        window.location.href = '/admin/settings';
+                        break;
+                }
+            },
+
+            async checkAuth() {
+                const token = localStorage.getItem('adminToken');
+                if (!token) {
+                    window.location.href = '/admin/login';
+                    return;
+                }
+
+                try {
+                    const response = await fetch('/api/admin/verify', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Invalid token');
+                    }
+                } catch (error) {
+                    console.error('Auth error:', error);
+                    localStorage.removeItem('adminToken');
+                    window.location.href = '/admin/login';
+                }
+            },
+
+            setupLogout() {
+                const logoutButton = document.getElementById('logout-button');
+                if (logoutButton) {
+                    logoutButton.addEventListener('click', () => {
+                        localStorage.removeItem('adminToken');
+                        window.location.href = '/admin/login';
+                    });
+                }
+            },
+
+            setupThemeToggle() {
+                const themeToggle = document.getElementById('theme-toggle');
+                if (themeToggle) {
+                    themeToggle.addEventListener('click', () => {
+                        const isDark = document.documentElement.classList.toggle('dark');
+                        localStorage.theme = isDark ? 'dark' : 'light';
+                    });
+                }
+            },
+
+            setupMediaUpload() {
+                const uploadInput = document.getElementById('media-upload');
+                if (uploadInput) {
+                    uploadInput.addEventListener('change', async (e) => {
+                        const file = e.target.files[0];
+                        if (!file) return;
+
+                        const formData = new FormData();
+                        formData.append('file', file);
+
+                        try {
+                            const response = await fetch('/api/admin/media', {
+                                method: 'POST',
+                                headers: {
+                                    'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+                                },
+                                body: formData
+                            });
+
+                            if (!response.ok) {
+                                throw new Error('Upload failed');
+                            }
+
+                            this.loadMedia();
+                        } catch (error) {
+                            console.error('Error uploading media:', error);
+                            alert('Failed to upload media. Please try again.');
+                        }
+                    });
+                }
+            },
+
+            async loadMedia() {
+                const mediaGrid = document.getElementById('media-grid');
+                if (!mediaGrid) return;
+
+                try {
+                    const response = await fetch('/api/admin/media', {
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Failed to load media');
+                    }
+
+                    const media = await response.json();
+                    mediaGrid.innerHTML = media.map(item => `
+                        <div class="relative group">
+                            ${item.type === 'image' ? `
+                                <img src="${item.url}" alt="" class="w-full h-32 object-cover rounded-lg">
+                            ` : `
+                                <video src="${item.url}" class="w-full h-32 object-cover rounded-lg"></video>
+                            `}
+                            <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center space-x-2">
+                                <button onclick="admin.copyMediaUrl('${item.url}')" class="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                    Copy URL
+                                </button>
+                                <button onclick="admin.deleteMedia('${item.filename}')" class="p-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+                } catch (error) {
+                    console.error('Error loading media:', error);
+                    mediaGrid.innerHTML = '<p class="text-red-500">Failed to load media</p>';
+                }
+            },
+
+            async deleteMedia(filename) {
+                if (!confirm('Are you sure you want to delete this media?')) {
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`/api/admin/media/${filename}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Failed to delete media');
+                    }
+
+                    this.loadMedia();
+                } catch (error) {
+                    console.error('Error deleting media:', error);
+                    alert('Failed to delete media. Please try again.');
+                }
+            },
+
+            copyMediaUrl(url) {
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('URL copied to clipboard!');
+                }).catch(err => {
+                    console.error('Failed to copy URL:', err);
+                    alert('Failed to copy URL. Please try again.');
+                });
+            }
+        };
+
+        // Initialize admin functionality when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => admin.init());
+    </script>
+</body>
+</html> 

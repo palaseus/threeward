@@ -43,35 +43,56 @@ const post = {
       metaDescription.content = post.excerpt;
     }
 
+    // Process content to enhance media elements
+    let processedContent = post.content;
+    
+    // Add classes to images
+    processedContent = processedContent.replace(
+        /<img([^>]*)>/g,
+        '<img$1 class="rounded-lg shadow-lg my-8 max-w-full h-auto">'
+    );
+
+    // Add classes to videos
+    processedContent = processedContent.replace(
+        /<video([^>]*)>/g,
+        '<video$1 class="rounded-lg shadow-lg my-8 w-full max-w-full h-auto" controls>'
+    );
+
     postContent.innerHTML = `
-      <header class="mb-8">
-        <div class="flex items-center space-x-2 mb-4">
-          ${Array.isArray(post.frontmatter.tags) ? post.frontmatter.tags.map(tag => `
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-              ${tag}
-            </span>
-          `).join('') : ''}
+        <header class="mb-8">
+            <div class="flex items-center space-x-2 mb-4">
+                ${Array.isArray(post.frontmatter.tags) ? post.frontmatter.tags.map(tag => `
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                        ${tag}
+                    </span>
+                `).join('') : ''}
+            </div>
+            <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                ${post.frontmatter.title}
+            </h1>
+            <div class="flex items-center space-x-4 text-gray-600 dark:text-gray-400">
+                <time datetime="${post.frontmatter.date}">
+                    ${new Date(post.frontmatter.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    })}
+                </time>
+                ${post.frontmatter.author ? `
+                    <span>by ${post.frontmatter.author}</span>
+                ` : ''}
+            </div>
+        </header>
+        <div class="prose dark:prose-invert max-w-none">
+            ${processedContent}
         </div>
-        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-          ${post.frontmatter.title}
-        </h1>
-        <div class="flex items-center space-x-4 text-gray-600 dark:text-gray-400">
-          <time datetime="${post.frontmatter.date}">
-            ${new Date(post.frontmatter.date).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            })}
-          </time>
-          ${post.frontmatter.author ? `
-            <span>by ${post.frontmatter.author}</span>
-          ` : ''}
-        </div>
-      </header>
-      <div class="prose dark:prose-invert max-w-none">
-        ${post.content}
-      </div>
     `;
+
+    // Add lazy loading to images
+    const images = postContent.getElementsByTagName('img');
+    for (const img of images) {
+        img.loading = 'lazy';
+    }
   },
 
   showError(message) {

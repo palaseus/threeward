@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Your Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="/" class="text-xl font-bold text-gray-900 dark:text-white">Your Blog</a>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="/admin/dashboard" data-nav-link="dashboard" class="border-transparent text-gray-500 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 hover:text-gray-700 dark:hover:text-gray-200 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Dashboard
+                        </a>
+                        <a href="/admin/posts" data-nav-link="posts" class="border-transparent text-gray-500 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 hover:text-gray-700 dark:hover:text-gray-200 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Posts
+                        </a>
+                        <a href="/admin/media" data-nav-link="media" class="border-transparent text-gray-500 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 hover:text-gray-700 dark:hover:text-gray-200 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Media
+                        </a>
+                        <a href="/admin/settings" data-nav-link="settings" class="border-transparent text-gray-500 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 hover:text-gray-700 dark:hover:text-gray-200 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Settings
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <button id="theme-toggle" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                        </svg>
+                    </button>
+                    <button id="logout-button" class="ml-4 px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 py-6 sm:px-0">
+            <div class="sm:flex sm:items-center">
+                <div class="sm:flex-auto">
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Settings</h2>
+                    <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">
+                        Manage your blog settings and preferences.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Settings Form -->
+            <div class="mt-8">
+                <form id="settings-form" class="space-y-6">
+                    <!-- Blog Settings -->
+                    <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">Blog Settings</h3>
+                            <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                                <div class="sm:col-span-4">
+                                    <label for="blog-title" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Blog Title</label>
+                                    <div class="mt-1">
+                                        <input type="text" name="blog-title" id="blog-title" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white">
+                                    </div>
+                                </div>
+
+                                <div class="sm:col-span-6">
+                                    <label for="blog-description" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Blog Description</label>
+                                    <div class="mt-1">
+                                        <textarea id="blog-description" name="blog-description" rows="3" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Admin Settings -->
+                    <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">Admin Settings</h3>
+                            <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                                <div class="sm:col-span-4">
+                                    <label for="admin-username" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Admin Username</label>
+                                    <div class="mt-1">
+                                        <input type="text" name="admin-username" id="admin-username" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white">
+                                    </div>
+                                </div>
+
+                                <div class="sm:col-span-4">
+                                    <label for="admin-password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Admin Password</label>
+                                    <div class="mt-1">
+                                        <input type="password" name="admin-password" id="admin-password" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cache Settings -->
+                    <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">Cache Settings</h3>
+                            <div class="mt-6">
+                                <button type="button" id="clear-cache" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                    Clear Cache
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const admin = {
+            init() {
+                this.checkAuth();
+                this.setupLogout();
+                this.setupThemeToggle();
+                this.setupNavigation();
+                this.setupSettingsForm();
+                this.loadSettings();
+            },
+
+            setupNavigation() {
+                const navLinks = document.querySelectorAll('[data-nav-link]');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const target = link.getAttribute('data-nav-link');
+                        this.navigateTo(target);
+                    });
+                });
+
+                const currentPath = window.location.pathname;
+                navLinks.forEach(link => {
+                    const target = link.getAttribute('data-nav-link');
+                    if (currentPath.includes(target)) {
+                        link.classList.add('bg-gray-100', 'dark:bg-gray-800');
+                    }
+                });
+            },
+
+            navigateTo(target) {
+                switch (target) {
+                    case 'dashboard':
+                        window.location.href = '/admin/dashboard';
+                        break;
+                    case 'posts':
+                        window.location.href = '/admin/posts';
+                        break;
+                    case 'media':
+                        window.location.href = '/admin/media';
+                        break;
+                    case 'settings':
+                        window.location.href = '/admin/settings';
+                        break;
+                }
+            },
+
+            async checkAuth() {
+                const token = localStorage.getItem('adminToken');
+                if (!token) {
+                    window.location.href = '/admin/login';
+                    return;
+                }
+
+                try {
+                    const response = await fetch('/api/admin/verify', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Invalid token');
+                    }
+                } catch (error) {
+                    console.error('Auth error:', error);
+                    localStorage.removeItem('adminToken');
+                    window.location.href = '/admin/login';
+                }
+            },
+
+            setupLogout() {
+                const logoutButton = document.getElementById('logout-button');
+                if (logoutButton) {
+                    logoutButton.addEventListener('click', () => {
+                        localStorage.removeItem('adminToken');
+                        window.location.href = '/admin/login';
+                    });
+                }
+            },
+
+            setupThemeToggle() {
+                const themeToggle = document.getElementById('theme-toggle');
+                if (themeToggle) {
+                    themeToggle.addEventListener('click', () => {
+                        const isDark = document.documentElement.classList.toggle('dark');
+                        localStorage.theme = isDark ? 'dark' : 'light';
+                    });
+                }
+            },
+
+            setupSettingsForm() {
+                const form = document.getElementById('settings-form');
+                const clearCacheButton = document.getElementById('clear-cache');
+
+                if (form) {
+                    form.addEventListener('submit', async (e) => {
+                        e.preventDefault();
+                        await this.saveSettings();
+                    });
+                }
+
+                if (clearCacheButton) {
+                    clearCacheButton.addEventListener('click', async () => {
+                        await this.clearCache();
+                    });
+                }
+            },
+
+            async loadSettings() {
+                try {
+                    const response = await fetch('/api/admin/settings', {
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Failed to load settings');
+                    }
+
+                    const settings = await response.json();
+                    this.populateSettingsForm(settings);
+                } catch (error) {
+                    console.error('Error loading settings:', error);
+                    alert('Failed to load settings. Please try again.');
+                }
+            },
+
+            populateSettingsForm(settings) {
+                const blogTitle = document.getElementById('blog-title');
+                const blogDescription = document.getElementById('blog-description');
+                const adminUsername = document.getElementById('admin-username');
+                const adminPassword = document.getElementById('admin-password');
+
+                if (blogTitle) blogTitle.value = settings.blogTitle || '';
+                if (blogDescription) blogDescription.value = settings.blogDescription || '';
+                if (adminUsername) adminUsername.value = settings.adminUsername || '';
+                if (adminPassword) adminPassword.value = '';
+            },
+
+            async saveSettings() {
+                const form = document.getElementById('settings-form');
+                const formData = new FormData(form);
+                const settings = {
+                    blogTitle: formData.get('blog-title'),
+                    blogDescription: formData.get('blog-description'),
+                    adminUsername: formData.get('admin-username'),
+                    adminPassword: formData.get('admin-password')
+                };
+
+                try {
+                    const response = await fetch('/api/admin/settings', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+                        },
+                        body: JSON.stringify(settings)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Failed to save settings');
+                    }
+
+                    alert('Settings saved successfully!');
+                } catch (error) {
+                    console.error('Error saving settings:', error);
+                    alert('Failed to save settings. Please try again.');
+                }
+            },
+
+            async clearCache() {
+                if (!confirm('Are you sure you want to clear the cache? This will temporarily slow down your blog.')) {
+                    return;
+                }
+
+                try {
+                    const response = await fetch('/api/invalidate', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Failed to clear cache');
+                    }
+
+                    alert('Cache cleared successfully!');
+                } catch (error) {
+                    console.error('Error clearing cache:', error);
+                    alert('Failed to clear cache. Please try again.');
+                }
+            }
+        };
+
+        // Initialize admin functionality when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => admin.init());
+    </script>
+</body>
+</html> 
