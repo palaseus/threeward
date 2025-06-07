@@ -46,9 +46,9 @@ const post = {
     postContent.innerHTML = `
       <header class="mb-8">
         <div class="flex items-center space-x-2 mb-4">
-          ${post.frontmatter.tags ? post.frontmatter.tags.split(',').map(tag => `
+          ${Array.isArray(post.frontmatter.tags) ? post.frontmatter.tags.map(tag => `
             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-              ${tag.trim()}
+              ${tag}
             </span>
           `).join('') : ''}
         </div>
