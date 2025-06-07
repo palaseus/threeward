@@ -2,8 +2,7 @@
 module.exports = {
   content: [
     './public/**/*.{html,js}',
-    './server/**/*.{js,html}',
-    './templates/**/*.html'
+    './server/**/*.js',
   ],
   darkMode: 'class',
   theme: {
@@ -61,9 +60,6 @@ module.exports = {
               color: 'inherit',
             },
             h4: {
-              color: 'inherit',
-            },
-            blockquote: {
               color: 'inherit',
             },
           },
